@@ -1,0 +1,34 @@
+<nav class="navbar navbar-dark">
+	<div id="title" class="container-fluid">
+		<h1>
+			<strong>Azure Cognitive Services - Computer Vision</strong>
+		</h1>
+	</div>
+</nav>
+
+<div class="formulario">
+	<div class="container custom-container">
+		<div class="col-md-12">
+			<h3 class="mb-3 text-center">
+				<strong>Ingrese un enlace aquí</strong>
+			</h3>
+		</div>
+		<div class="col-md-12">
+			<form>
+				<div class="row row-cols-4">
+					<div class="col">
+						<label id="url">
+							<b>Url de la imagen</b>
+						</label>
+					</div>
+					<div class="col">
+						<input id="img_url" class="form-control" [(ngModel)]="dto.img_url" [ngModelOptions]="{standalone: true}">
+					</div>
+					<div class="col-auto">
+						<button class="btn btn-primary btn-lg mb-3" (click)="sendRequest()">Enviar imagen</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

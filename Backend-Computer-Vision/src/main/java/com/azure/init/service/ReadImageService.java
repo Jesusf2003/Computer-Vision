@@ -1,6 +1,9 @@
 package com.azure.init.service;
 
-import java.util.UUID;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.*;
 
 import com.azure.init.domain.ReadImage;
 import com.microsoft.azure.cognitiveservices.vision.computervision.*;
@@ -14,26 +17,55 @@ public class ReadImageService {
 	private static String subscription_key = "";
 	private static String end_point = "";
 
-	public String sendFromUrl(ReadImage image) throws InterruptedException {
-
-		System.out.println("\nAzure Cognitive Services Computer Vision - Java Quickstart Sample");
-
-		ComputerVisionClient client = Authenticate(subscription_key, end_point);
-		
-		System.out.println(ReadFromUrl(client, image.getImg_url()));
-
-		return ReadFromUrl(client, image.getImg_url());
-	}
-
-	public String sendFromFile(ReadImage image) {
-		return null;
-	}
-
-	public static ComputerVisionClient Authenticate(String subscriptionKey, String endpoint) {
+	public static ComputerVisionClient credentials(String subscriptionKey, String endpoint) {
 		return ComputerVisionManager.authenticate(subscriptionKey).withEndpoint(endpoint);
 	}
 
-	private String ReadFromUrl(ComputerVisionClient client, String url) throws InterruptedException {
+	public String sendFromUrl(ReadImage image) throws InterruptedException {
+
+		System.out.println("\nAzure Cognitive Services Computer Vision");
+
+		ComputerVisionClient client = credentials(subscription_key, end_point);
+
+		return readFromUrl(client, image.getImg_url());
+	}
+	
+	public String sendFromLocal(ReadImage image) throws InterruptedException, IOException {
+		
+		System.out.println("\nAzure Cognitive Services Computer Vision");
+
+		ComputerVisionClient client = credentials(subscription_key, end_point);
+		
+		System.out.println(readFromLocal(client, image.getImg_url()));
+		return readFromLocal(client, image.getImg_url());
+	}
+
+	// Leer desde local
+	private String readFromLocal(ComputerVisionClient client, String url) throws InterruptedException, IOException {
+
+		String remoteTextImageURL = url;
+		ComputerVisionImpl vision = (ComputerVisionImpl) client.computerVision();
+
+		File rawImage = new File(remoteTextImageURL);
+		byte[] imageByteArray = Files.readAllBytes(rawImage.toPath());
+
+		ReadInStreamHeaders responseHeader = vision.readInStreamWithServiceResponseAsync(imageByteArray, null)
+				.toBlocking().single().headers();
+
+		// ReadHeaders responseHeader =
+		// vision.readWithServiceResponseAsync(remoteTextImageURL,
+		// null).toBlocking().single().headers();
+
+		String operationLocation = responseHeader.operationLocation();
+		System.out.println("Operation Location:" + operationLocation);
+
+		String rest = getResult(vision, operationLocation);
+
+		return rest;
+	}
+
+	// Leer desde enlace
+	private String readFromUrl(ComputerVisionClient client, String url) throws InterruptedException {
 
 		String remoteTextImageURL = url;
 		ComputerVisionImpl vision = (ComputerVisionImpl) client.computerVision();

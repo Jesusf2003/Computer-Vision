@@ -1,7 +1,6 @@
 package com.azure.init.service;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.util.*;
 
@@ -40,7 +39,6 @@ public class ReadImageService {
 		return readFromLocal(client, image.getImg_url());
 	}
 
-	// Leer desde local
 	private String readFromLocal(ComputerVisionClient client, String url) throws InterruptedException, IOException {
 
 		String remoteTextImageURL = url;
@@ -52,10 +50,6 @@ public class ReadImageService {
 		ReadInStreamHeaders responseHeader = vision.readInStreamWithServiceResponseAsync(imageByteArray, null)
 				.toBlocking().single().headers();
 
-		// ReadHeaders responseHeader =
-		// vision.readWithServiceResponseAsync(remoteTextImageURL,
-		// null).toBlocking().single().headers();
-
 		String operationLocation = responseHeader.operationLocation();
 		System.out.println("Operation Location:" + operationLocation);
 
@@ -64,7 +58,6 @@ public class ReadImageService {
 		return rest;
 	}
 
-	// Leer desde enlace
 	private String readFromUrl(ComputerVisionClient client, String url) throws InterruptedException {
 
 		String remoteTextImageURL = url;
@@ -112,12 +105,10 @@ public class ReadImageService {
 				}
 			}
 		}
-
 		for (ReadResult pageResult : readResult.analyzeResult().readResults()) {
 			System.out.println("");
 			System.out.println("Printing Read results for page " + pageResult.page());
 			StringBuilder builder = new StringBuilder();
-
 			for (Line line : pageResult.lines()) {
 				builder.append(line.text());
 				builder.append("\n");
@@ -127,5 +118,4 @@ public class ReadImageService {
 		}
 		throw new IllegalStateException("Algo salió mal: No se pudo realizar la acción.");
 	}
-
 }

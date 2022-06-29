@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ImagenClass } from 'src/app/service/imagen.model';
+import { ImagenClass, ImagenLocalClass, ImageUrlResponse, ImageLocalResponse } from 'src/app/service/imagen.model';
 import { ReadImageService } from 'src/app/service/read-image.service';
 
 @Component({
@@ -11,7 +11,10 @@ import { ReadImageService } from 'src/app/service/read-image.service';
 export class FormularyComponent implements OnInit {
 
 	public dto: ImagenClass = new ImagenClass();
-	public response: ImagenClass = new ImagenClass();
+	public dtoLocal: ImagenLocalClass = new ImagenLocalClass();
+
+	public response: ImageUrlResponse = new ImageUrlResponse();
+	public responseLocal: ImageLocalResponse = new ImageLocalResponse();
 
 	constructor(
 		private urlService: ReadImageService
@@ -20,14 +23,29 @@ export class FormularyComponent implements OnInit {
 	ngOnInit(): void {
 	}
 	
-	sendRequest(): void {
-		const data: ImagenClass = {
+	sendRequestUrl(): void {
+		const dataUrl: ImagenClass = {
 			img_url: this.dto.img_url
 		}
-		console.log(this.dto);
-		this.urlService.sendRequest(data).subscribe(
+		this.urlService.sendRequestUrl(dataUrl).subscribe(
 			date => {
 				this.response = date;
+				console.log(this.response);
+			},
+			(err: HttpErrorResponse) => {
+				console.log(err.message);
+			}
+		);
+	}
+	
+	sendRequestLocal(): void {
+		const dataLocal: ImagenLocalClass = {
+			img_url: this.dtoLocal.img_url
+		}
+		this.urlService.sendRequestLocal(dataLocal).subscribe(
+			date => {
+				this.responseLocal = date;
+				console.log(this.responseLocal);
 			},
 			(err: HttpErrorResponse) => {
 				console.log(err.message);

@@ -25,10 +25,34 @@
 						<input id="img_url" class="form-control" [(ngModel)]="dto.img_url" [ngModelOptions]="{standalone: true}">
 					</div>
 					<div class="col-auto">
-						<button class="btn btn-primary btn-lg mb-3" (click)="sendRequest()">Enviar imagen</button>
+						<button class="btn btn-primary btn-lg mb-3" (click)="sendRequestUrl()">Enviar Url de la imagen</button>
+					</div>
+				</div>
+				<div>
+					<img src="{{dto.img_url}}" width="50%" height="50%">
+				</div>
+			</form>
+			<div class="col-md-12" *ngIf="response">
+				<div>{{response.text}}</div>
+			</div>
+			<form>
+				<div class="row row-cols-4">
+					<div class="col">
+						<label id="local">
+							<b>Imagen local</b>
+						</label>
+					</div>
+					<div class="col">
+						<input id="img_local" class="form-control" [(ngModel)]="dtoLocal.img_url" [ngModelOptions]="{standalone: true}">
+					</div>
+					<div class="col_auto">
+						<button class="btn btn-primary btn-lg mb-3" (click)="sendRequestLocal()">Enviar imagen Local</button>
 					</div>
 				</div>
 			</form>
+			<div class="col-md-12" *ngIf="responseLocal">
+				<div>{{responseLocal.text}}</div>
+			</div>
 		</div>
 	</div>
 </div>

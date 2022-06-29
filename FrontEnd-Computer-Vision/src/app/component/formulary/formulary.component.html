@@ -1,58 +1,101 @@
-<nav class="navbar navbar-dark">
-	<div id="title" class="container-fluid">
-		<h1>
-			<strong>Azure Cognitive Services - Computer Vision</strong>
-		</h1>
+<nav class="navbar navbar-expand-lg bg-light">
+	<div class="container-fluid">
+		<a class="navbar-brand">
+			Cognitive Services | Computer Vision
+		</a>
 	</div>
 </nav>
 
-<div class="formulario">
-	<div class="container custom-container">
-		<div class="col-md-12">
-			<h3 class="mb-3 text-center">
-				<strong>Ingrese un enlace aquí</strong>
-			</h3>
-		</div>
-		<div class="col-md-12">
-			<form>
-				<div class="row row-cols-4">
-					<div class="col">
-						<label id="url">
-							<b>Url de la imagen</b>
-						</label>
-					</div>
-					<div class="col">
-						<input id="img_url" class="form-control" [(ngModel)]="dto.img_url" [ngModelOptions]="{standalone: true}">
-					</div>
-					<div class="col-auto">
-						<button class="btn btn-primary btn-lg mb-3" (click)="sendRequestUrl()">Enviar Url de la imagen</button>
-					</div>
-				</div>
-				<div>
-					<img src="{{dto.img_url}}" width="50%" height="50%">
-				</div>
-			</form>
-			<div class="col-md-12" *ngIf="response">
-				<div>{{response.text}}</div>
+<div class="py-5">
+	<div class="container">
+		<div class="card">
+			<div class="card-header">
+				<h4>
+					<strong>Text Extraction (OCR)</strong>
+				</h4>
 			</div>
-			<form>
-				<div class="row row-cols-4">
-					<div class="col">
-						<label id="local">
-							<b>Imagen local</b>
-						</label>
-					</div>
-					<div class="col">
-						<input id="img_local" class="form-control" [(ngModel)]="dtoLocal.img_url" [ngModelOptions]="{standalone: true}">
-					</div>
-					<div class="col_auto">
-						<button class="btn btn-primary btn-lg mb-3" (click)="sendRequestLocal()">Enviar imagen Local</button>
-					</div>
+			<div class="card-body">
+				<p>
+					Breve descripcion
+				</p>
+				<div class="container">
+					<section>
+						<div class="col-md-12">
+							<div class="col">
+								<strong>Leer imagen desde URL</strong>
+							</div>
+							<form>
+								<div class="col">
+									<div class="input-group mb-3">
+										<input id="img_url" class="form-control" [(ngModel)]="dto.img_url"
+											[ngModelOptions]="{standalone: true}">
+										<button class="btn input-group-text btn-primary" (click)="sendRequestUrl()">
+											Enviar
+										</button>
+									</div>
+								</div>
+							</form>
+							<div class="card">
+								<div class="card-header">
+									<strong>Respuesta</strong>
+								</div>
+								<div class="card-body">
+									<div class="col-md-12" *ngIf="response">
+										<div>{{response.text}}</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+					<br>
+					<section>
+						<div class="col-md-12">
+							<div class="col">
+								<strong>Leer imagen local</strong>
+							</div>
+							<form>
+								<div class="col">
+									<div class="input-group mb-3">
+										<input id="img_local" class="form-control" [(ngModel)]="dtoLocal.img_url"
+											[ngModelOptions]="{standalone: true}">
+										<button class="btn input-group-text btn-primary" (click)="sendRequestLocal()">
+											Enviar
+										</button>
+									</div>
+								</div>
+							</form>
+							<div class="card">
+								<div class="card-header">
+									<strong>Respuesta</strong>
+								</div>
+								<div class="card-body">
+									<div class="col-md-12" *ngIf="responseLocal">
+										<div>{{responseLocal.text}}</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
 				</div>
-			</form>
-			<div class="col-md-12" *ngIf="responseLocal">
-				<div>{{responseLocal.text}}</div>
 			</div>
 		</div>
 	</div>
 </div>
+<style>
+	.formularioRegistro {
+		padding-left: 10%;
+		padding-right: 10%;
+	}
+
+	.footerAngular {
+		background-color: black;
+		color: white;
+		text-align: center;
+		height: 50px;
+	}
+</style>
+<footer class="footerAngular bg-primary">
+	<p style="margin-top: 10%;">
+		Elaborado por: Fernando Canales Rodriguez - 2022
+	</p>
+</footer>

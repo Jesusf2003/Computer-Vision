@@ -1,11 +1,11 @@
 export class ImagenClass {
-	img_url?: any;
+	img_url?: string | undefined;
 	
 	constructor() {}
 }
 
 export class ImagenLocalClass {
-	img_url?: any;
+	img_url?: string | undefined;
 	
 	constructor() {}
 }
